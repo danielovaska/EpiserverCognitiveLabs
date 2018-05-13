@@ -1,6 +1,6 @@
 @model CommentListBlockViewModel
 <h2>Comments</h2>
-<div class="contact">
+<div class="comment">
     <ul>
         @foreach (var comment in Model.Comments)
         {
@@ -9,4 +9,14 @@
         </li>
         }
     </ul>
+</div>
+<h2>Add comment</h2>
+<div>
+    @using (Html.BeginForm("Save", "CommentListBlock", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.PostbackData.CurrentPageLink)
+        @Html.HiddenFor(x => x.PostbackData.CurrentLanguage)    
+        @Html.TextAreaFor(x => x.PostbackData.Comment);
+        <button type="submit">Submit</button>
+    }
 </div>

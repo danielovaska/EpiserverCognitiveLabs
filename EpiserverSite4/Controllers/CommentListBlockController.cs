@@ -17,12 +17,12 @@ namespace EpiserverSite4.Controllers
 {
     public class CommentListBlockController : BlockController<CommentListBlock>
     {
-        private readonly IContentLoader _contentLoader;
+        private readonly IContentRepository _contentRepository;
         private readonly IPageRouteHelper _pageRouteHelper;
 
-        public CommentListBlockController(IContentLoader contentLoader, IPageRouteHelper pageRouteHelper)
+        public CommentListBlockController(IContentRepository contentRepository, IPageRouteHelper pageRouteHelper)
         {
-            _contentLoader = contentLoader;
+            _contentRepository = contentRepository;
             _pageRouteHelper = pageRouteHelper;
         }
 
@@ -30,22 +30,38 @@ namespace EpiserverSite4.Controllers
         {
             var viewModel = new CommentListBlockViewModel();
             var currentPage = _pageRouteHelper.Page;
-            
-            var commentsFolder = _contentLoader.GetChildren<CommentsContainerPage>(currentPage.ContentLink).FilterForDisplay();
-            if(commentsFolder!=null && commentsFolder.Any())
+            var commentsFolder = GetCommentsFolder(currentPage.ContentLink);
+            var comments = _contentRepository.GetChildren<CommentPage>(commentsFolder.ContentLink).FilterForDisplay();
+            if (comments != null && comments.Any())
             {
-                var comments = _contentLoader.GetChildren<CommentPage>(commentsFolder.First().ContentLink).FilterForDisplay();
-                if(comments!=null && comments.Any())
-                {
-                    viewModel.Comments = from comment in comments
-                                         select new CommentViewModel { Text = comment.MainBody.ToString() };
-                }
-
+                viewModel.Comments = from comment in comments
+                                     select new CommentViewModel { Text = comment.MainBody.ToString() };
             }
+            viewModel.PostbackData = new CommentPostbackData { CurrentPageLink = currentPage.ContentLink, CurrentLanguage = currentPage.Language.ToString() };
 
             return PartialView(viewModel);
         }
-        
-
+        [HttpPost]
+        public ActionResult Save(CommentPostbackData PostbackData)
+        {
+            //Never trust user input!
+            var commentsFolder = GetCommentsFolder(PostbackData.CurrentPageLink);
+            var newComment = _contentRepository.GetDefault<CommentPage>(commentsFolder.ContentLink);
+            newComment.Name = "Comment";
+            newComment.MainBody = new XhtmlString($"<p>{PostbackData.Comment}</p>");
+            _contentRepository.Save(newComment,EPiServer.DataAccess.SaveAction.RequestApproval,EPiServer.Security.AccessLevel.Read);
+            var url = UrlResolver.Current.GetUrl(PostbackData.CurrentPageLink);
+            return Redirect(url);
+        }
+        private CommentsContainerPage GetCommentsFolder(ContentReference currentPageLink)
+        {
+            var commentsFolders = _contentRepository.GetChildren<CommentsContainerPage>(currentPageLink).FilterForDisplay();
+            if (commentsFolders != null && commentsFolders.Any())
+            {
+                var commentsFolder = commentsFolders.First();
+                return commentsFolder;
+            }
+            return null;
+        }
     }
 }
