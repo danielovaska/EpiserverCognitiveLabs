@@ -1,0 +1,12 @@
+@model CommentListBlockViewModel
+<h2>Comments</h2>
+<div class="contact">
+    <ul>
+        @foreach (var comment in Model.Comments)
+        {
+        <li>
+            @Html.Raw(comment.Text)
+        </li>
+        }
+    </ul>
+</div>
