@@ -69,30 +69,30 @@ namespace EpiserverSite4.Business.Initialization
         private void OnStepStarted(ApprovalEventArgs e)
         {
             var approvalEngine = ServiceLocator.Current.GetInstance<IApprovalEngine>();
-            //var textAnalyticsRepository = ServiceLocator.Current.GetInstance<ITextAnalyticsRepository>();
+            var textAnalyticsRepository = ServiceLocator.Current.GetInstance<ITextAnalyticsRepository>();
             var contentRepository = ServiceLocator.Current.GetInstance<IContentRepository>();
             var content = contentRepository.Get<IContent>(e.GetContentLink());
             var commentPage = content as CommentPage;
-            if (commentPage != null)
+            if(commentPage!=null)
             {
                 var text = commentPage.MainBody;
-                //var sentiment = textAnalyticsRepository.GetSentiment(TextIndexer.StripHtml(text.ToString(), 0));
-                //if (sentiment != null && sentiment > 0.3)
-                //{
-                //    var comment = $"Automatic approval with sentiment = {sentiment}";
-                //    approvalEngine.ApproveAsync(e.ApprovalID, "AI", 0, ApprovalDecisionScope.Force, comment).Wait(); ;
-                //    var clone = commentPage.CreateWritableClone();
-                //    contentRepository.Publish(clone, EPiServer.Security.AccessLevel.Read);
-                //    _log.Information(comment);
-                //}
-                //else
-                //{
-                //    var comment = $"Failed automatic approval with sentiment = {sentiment}";
-                //    _log.Information(comment);
-                //}
+                var sentiment = textAnalyticsRepository.GetSentiment(TextIndexer.StripHtml(text.ToString(),0));
+                if(sentiment!=null && sentiment > 0.3)
+                {
+                    var comment = $"Automatic approval with sentiment = {sentiment}";
+                    approvalEngine.ApproveAsync(e.ApprovalID, "Admin", 0, ApprovalDecisionScope.Force, comment).Wait(); ;
+                    var clone = commentPage.CreateWritableClone();
+                    contentRepository.Publish(clone, EPiServer.Security.AccessLevel.Read);
+                    _log.Information(comment);
+                }
+                else
+                {
+                    var comment = $"Failed automatic approval with sentiment = {sentiment}";
+                    _log.Information(comment);
+                }
             }
 
-
+            
         }
 
     }

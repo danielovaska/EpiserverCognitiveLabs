@@ -23,7 +23,7 @@ namespace EpiserverSite4.Business.Initialization
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
             //Implementations for custom interfaces can be registered here.
-            //var textAnalyticsLogger = LogManager.GetLogger(typeof(TextAnalyticsRepository));
+            var textAnalyticsLogger = LogManager.GetLogger(typeof(TextAnalyticsRepository));
             context.ConfigurationComplete += (o, e) =>
             {
 
@@ -31,14 +31,14 @@ namespace EpiserverSite4.Business.Initialization
                 context.Services
                 .AddTransient<IContentRenderer, ErrorHandlingContentRenderer>()
                 .AddTransient<ContentAreaRenderer, AlloyContentAreaRenderer>()
-                .AddTransient<INewsRepository, NewsRepository>();
-                //.AddTransient<ITextAnalyticsRepository, TextAnalyticsRepository>()
+                .AddTransient<INewsRepository, NewsRepository>()
+                .AddTransient<ITextAnalyticsRepository, TextAnalyticsRepository>()
 
-                //.AddInterceptors<ITextAnalyticsRepository>(new[]
-                //{
-                //    new LoggingInterceptor(textAnalyticsLogger, new ObjectLogger(), new LoggingInterceptorSettings { LogInputParameters = true, LogOutputParameters = true })
-                //});
-               
+                .AddInterceptors<ITextAnalyticsRepository>(new[]
+                {
+                    new LoggingInterceptor(textAnalyticsLogger, new ObjectLogger(), new LoggingInterceptorSettings { LogInputParameters = true, LogOutputParameters = true })
+                });
+               // context.Services.AddInterceptors<INewsRepository>(new[] {typeof(LoggingInterceptor), typeof(CacheInterceptor) });
             };
         }
         public void Initialize(InitializationEngine context)
