@@ -20,10 +20,10 @@ namespace EpiserverSite4.Models.Media
         /// The copyright.
         /// </value>
         public virtual string Copyright { get; set; }
-        //[Vision(VisionType = VisionTypes.Description)]
+        [Vision(VisionType = VisionTypes.Description)]
         public virtual string Description { get; set; }
         //Alternatively you can of course also use a property list.
-        //[Vision(VisionType = VisionTypes.Tags)]
+        [Vision(VisionType = VisionTypes.Tags)]
         [Display(Order = 305)]
         [UIHint(Global.SiteUIHints.StringsCollection)]
         public virtual IList<string> TagList { get; set; }
@@ -58,7 +58,7 @@ namespace EpiserverSite4.Models.Media
         //[Vision(VisionType = VisionTypes.Text)]
         public virtual string TextRecognized { get; set; }
 
-        //[Vision(VisionType = VisionTypes.Text)]
+        [Vision(VisionType = VisionTypes.Text)]
         public virtual XhtmlString TextInPicture { get; set; }
 
         
