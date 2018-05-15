@@ -32,12 +32,6 @@ namespace EpiserverSite4.Business.Initialization
                 .AddTransient<IContentRenderer, ErrorHandlingContentRenderer>()
                 .AddTransient<ContentAreaRenderer, AlloyContentAreaRenderer>()
                 .AddTransient<INewsRepository, NewsRepository>();
-                //.AddTransient<ITextAnalyticsRepository, TextAnalyticsRepository>()
-
-                //.AddInterceptors<ITextAnalyticsRepository>(new[]
-                //{
-                //    new LoggingInterceptor(textAnalyticsLogger, new ObjectLogger(), new LoggingInterceptorSettings { LogInputParameters = true, LogOutputParameters = true })
-                //});
                
             };
         }

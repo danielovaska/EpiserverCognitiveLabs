@@ -75,7 +75,7 @@ namespace EpiserverSite4.Business.Initialization
             var commentPage = content as CommentPage;
             if (commentPage != null)
             {
-                var text = commentPage.MainBody;
+                //var text = commentPage.MainBody;
                 //var sentiment = textAnalyticsRepository.GetSentiment(TextIndexer.StripHtml(text.ToString(), 0));
                 //if (sentiment != null && sentiment > 0.3)
                 //{
