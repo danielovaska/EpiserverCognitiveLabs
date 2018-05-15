@@ -20,10 +20,10 @@ namespace EpiserverSite4.Models.Media
         /// The copyright.
         /// </value>
         public virtual string Copyright { get; set; }
-        [Vision(VisionType = VisionTypes.Description)]
+       // [Vision(VisionType = VisionTypes.Description)]
         public virtual string Description { get; set; }
         //Alternatively you can of course also use a property list.
-        [Vision(VisionType = VisionTypes.Tags)]
+        //[Vision(VisionType = VisionTypes.Tags)]
         [Display(Order = 305)]
         [UIHint(Global.SiteUIHints.StringsCollection)]
         public virtual IList<string> TagList { get; set; }
@@ -36,23 +36,23 @@ namespace EpiserverSite4.Models.Media
         //public virtual string[] ImageCategories { get; set; }
 
         //True if the image contains adult content. Useful for moderation
-        [Vision(VisionType = VisionTypes.Adult)]
+        //[Vision(VisionType = VisionTypes.Adult)]
         public virtual bool IsAdultContent { get; set; }
 
         //True if the image contains racy content. USeful for moderation
-        [Vision(VisionType = VisionTypes.Racy)]
+        //[Vision(VisionType = VisionTypes.Racy)]
         public virtual bool IsRacyContent { get; set; }
 
         //True if the image is clipart
-        [Vision(VisionType = VisionTypes.ClipArt)]
+        //[Vision(VisionType = VisionTypes.ClipArt)]
         public virtual bool IsClipArt { get; set; }
 
         //True if the image is a line drawing
-        [Vision(VisionType = VisionTypes.LineDrawing)]
+        //[Vision(VisionType = VisionTypes.LineDrawing)]
         public virtual bool IsLineDrawing { get; set; }
 
         //True if the image is black and white
-        [Vision(VisionType = VisionTypes.BlackAndWhite)]
+        //[Vision(VisionType = VisionTypes.BlackAndWhite)]
         public virtual bool IsBlackAndWhite { get; set; }
 
         ////Hex code of the main accent color in the image. Useful for adopting the design to match the image
@@ -75,10 +75,10 @@ namespace EpiserverSite4.Models.Media
         //public virtual string[] Faces { get; set; }
 
         //Text recognized in the image
-        [Vision(VisionType = VisionTypes.Text)]
+        //[Vision(VisionType = VisionTypes.Text)]
         public virtual string TextRecognized { get; set; }
 
-        [Vision(VisionType = VisionTypes.Text)]
+        //[Vision(VisionType = VisionTypes.Text)]
         public virtual XhtmlString TextInPicture { get; set; }
 
         //A smart thumbnail at a given size, focussing on the subject matter in the image. Most be a Blob. 
