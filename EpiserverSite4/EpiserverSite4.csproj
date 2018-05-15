@@ -394,7 +394,7 @@
     <Compile Include="Business\EditorDescriptors\ContactPageSelector.cs" />
     <Compile Include="Business\EditorDescriptors\StringListEditorDescriptor.cs" />
     <Compile Include="Business\IModifyLayout.cs" />
-    <Compile Include="Business\Initialization\ApprovalModule.cs" />
+    <Compile Include="Business\CommentApproval\ApprovalModule.cs" />
     <Compile Include="Business\Initialization\BundleConfig.cs" />
     <Compile Include="Business\Initialization\CustomizedRenderingInitialization.cs" />
     <Compile Include="Business\Initialization\DependencyResolverInitialization.cs" />
@@ -423,7 +423,7 @@
     <Compile Include="Controllers\PreviewController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\StartPageController.cs" />
-    <Compile Include="Controllers\TextAnalyticsRepository.cs" />
+    <Compile Include="Business\CommentApproval\TextAnalyticsRepository.cs" />
     <Compile Include="Controllers\VideoFileController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
