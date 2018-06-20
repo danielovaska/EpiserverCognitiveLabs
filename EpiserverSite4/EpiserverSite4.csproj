@@ -388,6 +388,8 @@
     <Compile Include="Business\Channels\DisplayResolutions.cs" />
     <Compile Include="Business\Channels\MobileChannel.cs" />
     <Compile Include="Business\Channels\WebChannel.cs" />
+    <Compile Include="Business\CommentApproval\ITextAnalyticsRepository.cs" />
+    <Compile Include="Business\CommentApproval\TextAnalyticsRepository.cs" />
     <Compile Include="Business\ContentExtensions.cs" />
     <Compile Include="Business\ContentLocator.cs" />
     <Compile Include="Business\EditorDescriptors\ContactPageSelectionFactory.cs" />

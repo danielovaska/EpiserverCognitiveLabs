@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Mogul.Interceptor.Cache;
 using EPiServer.Logging;
 using Mogul.Interceptor.Base.Infrastructure.Logging;
+using EpiserverSite4.Business.CommentApproval;
 
 namespace EpiserverSite4.Business.Initialization
 {
@@ -31,8 +32,9 @@ namespace EpiserverSite4.Business.Initialization
                 context.Services
                 .AddTransient<IContentRenderer, ErrorHandlingContentRenderer>()
                 .AddTransient<ContentAreaRenderer, AlloyContentAreaRenderer>()
-                .AddTransient<INewsRepository, NewsRepository>();
-               
+                .AddTransient<INewsRepository, NewsRepository>()
+                .AddTransient<ITextAnalyticsRepository, TextAnalyticsRepository>();
+
             };
         }
         public void Initialize(InitializationEngine context)
